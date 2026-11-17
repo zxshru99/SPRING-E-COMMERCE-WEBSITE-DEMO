@@ -1,6 +1,5 @@
 package com.telusko.SpringEcom.Controller;
 
-import com.telusko.SpringEcom.Model.Product;
 import com.telusko.SpringEcom.Model.dto.OrderRequest;
 import com.telusko.SpringEcom.Model.dto.OrderResponse;
 import com.telusko.SpringEcom.Service.OrderService;
@@ -15,18 +14,19 @@ import java.util.List;
 @RequestMapping("/api")
 @CrossOrigin
 public class OrderController {
-    @Autowired
-    OrderService orderService;
-    @PostMapping("orders/place")
-    public ResponseEntity<OrderResponse> placeOrder(@RequestBody  OrderRequest request){
 
-        OrderResponse response =orderService.addProduct(request);
+    @Autowired
+    private OrderService orderService;
+
+    @PostMapping("/orders/place")
+    public ResponseEntity<OrderResponse> placeOrder(@RequestBody OrderRequest request) {
+        OrderResponse response = orderService.placeOrder(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+
     @GetMapping("/orders")
-    public ResponseEntity<List<OrderResponse>> getAllOrderResponses(){
+    public ResponseEntity<List<OrderResponse>> getAllOrderResponses() {
         List<OrderResponse> orderResponseList = orderService.getAllOrderResponses();
         return new ResponseEntity<>(orderResponseList, HttpStatus.OK);
     }
-
 }
